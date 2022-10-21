@@ -12,6 +12,11 @@
 		957BD5ED2901A35B0000FD4B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BD5EC2901A35B0000FD4B /* ViewController.swift */; };
 		957BD5F22901A35D0000FD4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 957BD5F12901A35D0000FD4B /* Assets.xcassets */; };
 		957BD5F52901A35D0000FD4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 957BD5F32901A35D0000FD4B /* LaunchScreen.storyboard */; };
+		957BD6012901B8BD0000FD4B /* GameFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BD6002901B8BD0000FD4B /* GameFieldView.swift */; };
+		957BD6032901B9A50000FD4B /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BD6022901B9A50000FD4B /* CellData.swift */; };
+		957BD6072901BABF0000FD4B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BD6062901BABF0000FD4B /* Constants.swift */; };
+		957BD6092901BBDD0000FD4B /* GameFieldCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BD6082901BBDD0000FD4B /* GameFieldCellView.swift */; };
+		957BD60D2901C1080000FD4B /* ControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BD60C2901C1080000FD4B /* ControlPanel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,11 @@
 		957BD5F12901A35D0000FD4B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		957BD5F42901A35D0000FD4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		957BD5F62901A35D0000FD4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		957BD6002901B8BD0000FD4B /* GameFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFieldView.swift; sourceTree = "<group>"; };
+		957BD6022901B9A50000FD4B /* CellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
+		957BD6062901BABF0000FD4B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		957BD6082901BBDD0000FD4B /* GameFieldCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFieldCellView.swift; sourceTree = "<group>"; };
+		957BD60C2901C1080000FD4B /* ControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlPanel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +64,67 @@
 		957BD5E72901A35B0000FD4B /* Conway-s-Game-of-Life-on-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				957BD5E82901A35B0000FD4B /* AppDelegate.swift */,
-				957BD5EA2901A35B0000FD4B /* SceneDelegate.swift */,
-				957BD5EC2901A35B0000FD4B /* ViewController.swift */,
+				957BD6052901BA990000FD4B /* Helpers */,
+				957BD6042901BA540000FD4B /* Application */,
+				957BD5FE2901A83F0000FD4B /* Models */,
+				957BD5FC2901A79D0000FD4B /* Controllers */,
 				957BD5F12901A35D0000FD4B /* Assets.xcassets */,
 				957BD5F32901A35D0000FD4B /* LaunchScreen.storyboard */,
 				957BD5F62901A35D0000FD4B /* Info.plist */,
 			);
 			path = "Conway-s-Game-of-Life-on-iOS";
+			sourceTree = "<group>";
+		};
+		957BD5FC2901A79D0000FD4B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				957BD5FD2901A7B00000FD4B /* GameField */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		957BD5FD2901A7B00000FD4B /* GameField */ = {
+			isa = PBXGroup;
+			children = (
+				957BD5FF2901B8AD0000FD4B /* View */,
+				957BD5EC2901A35B0000FD4B /* ViewController.swift */,
+			);
+			path = GameField;
+			sourceTree = "<group>";
+		};
+		957BD5FE2901A83F0000FD4B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				957BD6022901B9A50000FD4B /* CellData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		957BD5FF2901B8AD0000FD4B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				957BD60C2901C1080000FD4B /* ControlPanel.swift */,
+				957BD6002901B8BD0000FD4B /* GameFieldView.swift */,
+				957BD6082901BBDD0000FD4B /* GameFieldCellView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		957BD6042901BA540000FD4B /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				957BD5E82901A35B0000FD4B /* AppDelegate.swift */,
+				957BD5EA2901A35B0000FD4B /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		957BD6052901BA990000FD4B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				957BD6062901BABF0000FD4B /* Constants.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +198,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				957BD5ED2901A35B0000FD4B /* ViewController.swift in Sources */,
+				957BD6092901BBDD0000FD4B /* GameFieldCellView.swift in Sources */,
 				957BD5E92901A35B0000FD4B /* AppDelegate.swift in Sources */,
 				957BD5EB2901A35B0000FD4B /* SceneDelegate.swift in Sources */,
+				957BD6032901B9A50000FD4B /* CellData.swift in Sources */,
+				957BD6012901B8BD0000FD4B /* GameFieldView.swift in Sources */,
+				957BD60D2901C1080000FD4B /* ControlPanel.swift in Sources */,
+				957BD6072901BABF0000FD4B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
