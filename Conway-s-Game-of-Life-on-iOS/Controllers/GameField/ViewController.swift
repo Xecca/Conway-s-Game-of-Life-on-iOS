@@ -12,7 +12,7 @@ final class ViewController: UIViewController {
     private var isStarted = false
     private lazy var timer = Timer()
     private lazy var isRanomized = false
-    private let startCellsAmount = 150
+    private let startCellsAmount = 200
     
     private let controlPanel = UIView()
     private var cells = [UIView]()
