@@ -7,39 +7,41 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    var currentGeneration = 0
-    var isStarted = false
-    lazy var timer = Timer()
+final class ViewController: UIViewController {
+    private var currentGeneration = 0
+    private var isStarted = false
+    private lazy var timer = Timer()
+    private lazy var isRanomized = false
+    private let startCellsAmount = 150
     
-    var controlPanel = ControlPanel()
-    var cells = [UIView]()
-    var field = UIView()
+    private let controlPanel = UIView()
+    private var cells = [UIView]()
+    private let field = UIView()
     
-    let startButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.title = "Start"
-        configuration.titlePadding = 10
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+    private lazy var startButton: UIButton = {
+        let button = UIButton()
         
-        let button = UIButton(configuration: configuration)
-        
+        button.setTitle("Start", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.systemGray, for: .highlighted)
+        button.backgroundColor = .systemGray5
         button.addTarget(self, action: #selector(startButtonPressed), for: .touchUpInside)
+        button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        button.layer.cornerRadius = 5
         
         return button
     }()
     
-    let restartButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.title = "Restart"
-        configuration.titlePadding = 10
-        configuration.background.backgroundColor = .systemMint
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+    private lazy var randomizeButton: UIButton = {
+        let button = UIButton()
         
-        let button = UIButton(configuration: configuration)
-        button.addTarget(self, action: #selector(restartButtonPressed), for: .touchUpInside)
+        button.setTitle("Randomize", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.systemGray3, for: .highlighted)
+        button.addTarget(self, action: #selector(randomizeButtonPressed), for: .touchUpInside)
+        button.backgroundColor = .systemGreen
+        button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        button.layer.cornerRadius = 5
         
         return button
     }()
@@ -51,8 +53,6 @@ class ViewController: UIViewController {
         setConstraints()
         configureAppearance()
         fillTheField()
-        placeRandomly(100)
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -61,8 +61,9 @@ class ViewController: UIViewController {
     }
 }
 
+// MARK: - Field Manager
 extension ViewController {
-    func fillTheField() {
+    private func fillTheField() {
         var row = 0
         var column: Int
         var x: CGFloat = Constants.halfOfCellWidth
@@ -88,40 +89,36 @@ extension ViewController {
         }
     }
     
-    func clearField() {
+    private func clearField() {
         for cell in cells {
             cell.backgroundColor = .white
         }
     }
 }
 
+// MARK: - Cells Manager
 extension ViewController {
-    func createCell() -> UIView {
+    private func createCell() -> UIView {
         let cell = UIView(frame: CGRect(origin: .zero, size: CGSize(width: Constants.fieldCellWidth, height: Constants.fieldCellWidth)))
 
         cell.backgroundColor = .white
-        cell.layer.cornerRadius = 1
-        cell.layer.borderWidth = 1
-        cell.layer.borderColor = UIColor.systemGray.cgColor
+        cell.layer.cornerRadius = 2
+        cell.layer.borderWidth = .zero
+//        cell.layer.borderColor = UIColor.systemGray.cgColor
         
         return cell
     }
     
-    func resurrectCell(at index: Int) {
+    private func resurrectCell(at index: Int) {
         cells[index].backgroundColor = .black
     }
     
-    func killCell(at index: Int) {
+    private func killCell(at index: Int) {
         cells[index].backgroundColor = .white
     }
-
-    func removeCellFromTheField() {
-        let cell = cells.removeLast()
-        cell.removeFromSuperview()
-    }
     
-    func placeRandomly(_ amount: Int) {
-        for _ in 0...amount {
+    private func placeRandomly(_ amount: Int) {
+        for _ in 0..<amount {
             let randomIndex = Int.random(in: 0..<Constants.cellsCount)
             
             resurrectCell(at: randomIndex)
@@ -131,19 +128,23 @@ extension ViewController {
 
 // MARK: - Update Generation
 extension ViewController {
-    func updateGeneration() {
+    private func updateGeneration() {
         var i = 0
+        var row = 1
         let cellsCount = cells.count
         
         while i < cellsCount {
+            if i >= Constants.fieldWidth && i % Constants.fieldWidth == 0 {
+                row += 1
+            }
             var countOfAliveNeighbors = 0
             // check left neighbors
             let shiftToTopNeighbors = i - Constants.fieldWidth
             
-            if i % 50 != 0 {
+            if i != 0 && Constants.fieldWidth * (row - 1) - i != 0 {
                 countOfAliveNeighbors += checkVerticalNeighbors(shiftToTopNeighbors - 1)
             }
-            if i % 49 != 0 {
+            if i != Constants.fieldWidth - 1 && Constants.fieldWidth * row - 1 - i != 0 {
                 countOfAliveNeighbors += checkVerticalNeighbors(shiftToTopNeighbors + 1 )
             }
             countOfAliveNeighbors += checkTopOrBottomNeighbors(shiftToTopNeighbors)
@@ -163,12 +164,11 @@ extension ViewController {
             }
             i += 1
         }
-        
         currentGeneration += 1
         print("Current generation: \(currentGeneration)")
     }
     
-    func checkVerticalNeighbors(_ index: Int) -> Int {
+    private func checkVerticalNeighbors(_ index: Int) -> Int {
         var i = index
         var countOfAliveNeighbors = 0
         
@@ -178,12 +178,12 @@ extension ViewController {
                     countOfAliveNeighbors += 1
                 }
             }
-            i += 50
+            i += Constants.fieldWidth
         }
         
         return countOfAliveNeighbors
     }
-    func checkTopOrBottomNeighbors(_ index: Int) -> Int {
+    private func checkTopOrBottomNeighbors(_ index: Int) -> Int {
         if index >= 0 && index < Constants.cellsCount {
             if cells[index].backgroundColor == .black {
                 return 1
@@ -193,59 +193,59 @@ extension ViewController {
     }
 }
 
-
 extension ViewController {
     // MARK: - Start Button
-    @objc func startButtonPressed() {
-        
-        if !isStarted {
-            self.timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { _ in
-                self.updateGeneration()
-            })
-            startButton.setTitle("Stop", for: .normal)
-            startButton.configuration?.background.backgroundColor = .systemRed
+    @objc private func startButtonPressed() {
+        print(Constants.cellsCount)
+        if !isRanomized {
+            startButton.isEnabled = false
         } else {
-            self.timer.invalidate()
+            if !isStarted {
+                self.timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { _ in
+                    self.updateGeneration()
+                })
+                startButton.setTitle("Stop", for: .normal)
+                startButton.backgroundColor = .systemRed
+            } else {
+                self.timer.invalidate()
 
-            startButton.setTitle("Start", for: .normal)
-            startButton.configuration?.background.backgroundColor = .systemBlue
-            print("game stoped")
+                startButton.setTitle("Start", for: .normal)
+                startButton.backgroundColor = .systemBlue
+                print("game stoped")
+            }
+            isStarted.toggle()
         }
-        isStarted.toggle()
     }
-    // MARK: - Restart Button
-    @objc func restartButtonPressed() {
-        currentGeneration = 0
-        clearField()
+    // MARK: - Randomize Button
+    @objc private func randomizeButtonPressed() {
         self.timer.invalidate()
-        placeRandomly(150)
-        self.timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { _ in
-            self.updateGeneration()
-        })
-        startButton.setTitle("Stop", for: .normal)
-        startButton.configuration?.background.backgroundColor = .systemRed
-        isStarted = true
+        isStarted = false
+        isRanomized = true
+        currentGeneration = 0
+        
+        clearField()
+        placeRandomly(startCellsAmount)
+        
+        startButton.setTitle("Start", for: .normal)
+        startButton.backgroundColor = .systemBlue
     }
-    
 }
-
 
 // MARK: - Views Manager
 extension ViewController {
-    func setupViews() {
+    private func setupViews() {
         field.translatesAutoresizingMaskIntoConstraints = false
         controlPanel.translatesAutoresizingMaskIntoConstraints = false
         startButton.translatesAutoresizingMaskIntoConstraints = false
-        restartButton.translatesAutoresizingMaskIntoConstraints = false
+        randomizeButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(controlPanel)
         controlPanel.addSubview(startButton)
-        controlPanel.addSubview(restartButton)
+        controlPanel.addSubview(randomizeButton)
         view.addSubview(field)
-        
     }
     
-    func setConstraints() {
+    private func setConstraints() {
         
         NSLayoutConstraint.activate([
             controlPanel.topAnchor.constraint(equalTo: view.topAnchor),
@@ -256,18 +256,17 @@ extension ViewController {
             startButton.centerXAnchor.constraint(equalTo: controlPanel.centerXAnchor),
             startButton.bottomAnchor.constraint(equalTo: field.topAnchor, constant: -20),
             
-            restartButton.centerYAnchor.constraint(equalTo: startButton.centerYAnchor),
-            restartButton.trailingAnchor.constraint(equalTo: field.trailingAnchor, constant: -20),
+            randomizeButton.centerYAnchor.constraint(equalTo: startButton.centerYAnchor),
+            randomizeButton.trailingAnchor.constraint(equalTo: field.trailingAnchor, constant: -20),
             
             field.topAnchor.constraint(equalTo: controlPanel.bottomAnchor),
             field.widthAnchor.constraint(equalToConstant: Constants.screenWidth),
             field.heightAnchor.constraint(equalToConstant: Constants.screenWidth),
-            
         ])
     }
     
-    func configureAppearance() {
+    private func configureAppearance() {
         field.backgroundColor = .systemRed
-        view.backgroundColor = .systemCyan
+        view.backgroundColor = .systemIndigo
     }
 }
