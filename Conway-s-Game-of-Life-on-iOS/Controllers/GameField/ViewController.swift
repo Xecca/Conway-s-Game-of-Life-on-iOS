@@ -246,7 +246,6 @@ extension ViewController {
     }
     
     private func setConstraints() {
-        
         NSLayoutConstraint.activate([
             controlPanel.topAnchor.constraint(equalTo: view.topAnchor),
             controlPanel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
