@@ -2,8 +2,6 @@
   
   The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970.[^1] It is a zero-player game,[^2][^3] meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Game of Life by creating an initial configuration and observing how it evolves. It is Turing complete and can simulate a [universal constructor](https://en.wikipedia.org/wiki/Von_Neumann_universal_constructor) or any other [Turing machine](https://en.wikipedia.org/wiki/Turing_machine). 
   
-  #### References:  
-  
   [^1]: Summers, Jason. ["The fantastic combinations of John Conway's new solitaire game 'life'"](https://web.stanford.edu/class/sts145/Library/life.pdf). Entropymine.com. Retrieved February 5, 2011.
   [^2]: [Berlekamp, E. R.; Conway, John Horton; Guy, R. K. (2001–2004). Winning Ways for your Mathematical Plays (2nd ed.). A K Peters Ltd.](https://en.wikipedia.org/wiki/Winning_Ways_for_Your_Mathematical_Plays)
   [^3]: [Izhikevich, Eugene M.; Conway, John H.; Seth, Anil (2015-06-21). "Game of Life"](http://www.scholarpedia.org/article/Game_of_Life)
