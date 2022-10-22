@@ -8,40 +8,29 @@
 import UIKit
 
 final class ViewController: UIViewController {
-    private var currentGeneration = 0
-    private var isStarted = false
+    private lazy var currentGeneration = 0
+    private lazy var isStarted = false
     private lazy var timer = Timer()
     private lazy var isRanomized = false
     private let startCellsAmount = 200
     
     private let controlPanel = UIView()
+    private let generationLabel = LabelWithCounter()
     private var cells = [UIView]()
     private let field = UIView()
     
-    private lazy var startButton: UIButton = {
-        let button = UIButton()
+    private lazy var startButton: GoLButton = {
+        let button = GoLButton(with: .startStop)
         
-        button.setTitle("Start", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setTitleColor(.systemGray, for: .highlighted)
-        button.backgroundColor = .systemGray5
         button.addTarget(self, action: #selector(startButtonPressed), for: .touchUpInside)
-        button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
-        button.layer.cornerRadius = 5
         
         return button
     }()
     
-    private lazy var randomizeButton: UIButton = {
-        let button = UIButton()
-        
-        button.setTitle("Randomize", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setTitleColor(.systemGray3, for: .highlighted)
+    private lazy var randomizeButton: GoLButton = {
+        let button = GoLButton(with: .randomize)
+
         button.addTarget(self, action: #selector(randomizeButtonPressed), for: .touchUpInside)
-        button.backgroundColor = .systemGreen
-        button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
-        button.layer.cornerRadius = 5
         
         return button
     }()
@@ -49,15 +38,22 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupViews()
-        setConstraints()
-        configureAppearance()
-        fillTheField()
+        initiateGame()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+    }
+}
+
+// MARK: - Game Initializer
+extension ViewController {
+    func initiateGame() {
+        setupViews()
+        setConstraints()
+        configureAppearance()
+        fillTheField()
     }
 }
 
@@ -165,7 +161,7 @@ extension ViewController {
             i += 1
         }
         currentGeneration += 1
-        print("Current generation: \(currentGeneration)")
+        generationLabel.counterLabel.text = "\(currentGeneration)"
     }
     
     private func checkVerticalNeighbors(_ index: Int) -> Int {
@@ -218,6 +214,7 @@ extension ViewController {
     }
     // MARK: - Randomize Button
     @objc private func randomizeButtonPressed() {
+        generationLabel.counterLabel.text = "0"
         self.timer.invalidate()
         isStarted = false
         isRanomized = true
@@ -226,6 +223,7 @@ extension ViewController {
         clearField()
         placeRandomly(startCellsAmount)
         
+        startButton.isEnabled = true
         startButton.setTitle("Start", for: .normal)
         startButton.backgroundColor = .systemBlue
     }
@@ -236,12 +234,14 @@ extension ViewController {
     private func setupViews() {
         field.translatesAutoresizingMaskIntoConstraints = false
         controlPanel.translatesAutoresizingMaskIntoConstraints = false
+        generationLabel.translatesAutoresizingMaskIntoConstraints = false
         startButton.translatesAutoresizingMaskIntoConstraints = false
         randomizeButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(controlPanel)
         controlPanel.addSubview(startButton)
         controlPanel.addSubview(randomizeButton)
+        controlPanel.addSubview(generationLabel)
         view.addSubview(field)
     }
     
@@ -252,6 +252,9 @@ extension ViewController {
             controlPanel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             controlPanel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             controlPanel.heightAnchor.constraint(equalToConstant: 150),
+            
+            generationLabel.leadingAnchor.constraint(equalTo: controlPanel.leadingAnchor),
+            generationLabel.centerYAnchor.constraint(equalTo: controlPanel.centerYAnchor),
             
             startButton.centerXAnchor.constraint(equalTo: controlPanel.centerXAnchor),
             startButton.bottomAnchor.constraint(equalTo: field.topAnchor, constant: -20),
