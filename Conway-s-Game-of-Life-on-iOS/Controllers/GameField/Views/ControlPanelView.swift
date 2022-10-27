@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ControlPanelView: BaseView {
+final class ControlPanelView: BaseView {
     lazy var startButton = Button(with: .startStop)
     lazy var randomizeButton = Button(with: .randomize)
     let generationLabel = LabelWithCounter()
