@@ -141,15 +141,15 @@ extension GameViewController {
     }
     
     private func checkCellIsAlive(with aliveNeighbors: Int, in i: Int) {
-        if !cells[i] {
-            if aliveNeighbors == 3 {
-                resurrectCell(at: i)
-            }
-        } else {
+        if cells[i] {
             switch aliveNeighbors {
             case 0...1, 4...8:
                 killCell(at: i)
             default:
+                resurrectCell(at: i)
+            }
+        } else {
+            if aliveNeighbors == 3 {
                 resurrectCell(at: i)
             }
         }
