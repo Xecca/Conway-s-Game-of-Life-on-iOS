@@ -7,8 +7,6 @@
 
 import UIKit
 
-
-
 class LabelWithCounter: UIView {
     let titleLabel = UILabel()
     let counterLabel = UILabel()
@@ -24,7 +22,6 @@ class LabelWithCounter: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 private extension LabelWithCounter {
