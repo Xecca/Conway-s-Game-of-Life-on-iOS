@@ -12,7 +12,7 @@ enum StartButtonState {
     case stop
 }
 
-class GameFieldView: BaseView {
+final class GameFieldView: BaseView {
     
     weak var delegate: GameFieldViewDelegate?
     

@@ -24,7 +24,6 @@ final class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fieldView.delegate = self
         initiateGame()
     }
     
@@ -67,6 +66,7 @@ extension GameViewController: GameFieldViewDelegate {
 // MARK: - Game Initializer
 extension GameViewController {
     private func initiateGame() {
+        fieldView.delegate = self
         setupViews()
         setConstraints()
         configureAppearance()
@@ -113,9 +113,7 @@ extension GameViewController {
             if i >= Constants.fieldWidth && i % Constants.fieldWidth == 0 {
                 row += 1
             }
-            // check left neighbors
             let countOfAliveNeighbors = checkAllNeighbors(by: i, in: row)
-            // check cell isAlive
             checkCellIsAlive(with: countOfAliveNeighbors, in: i)
             i += 1
         }
