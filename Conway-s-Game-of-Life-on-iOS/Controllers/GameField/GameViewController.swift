@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ControlPanelViewDelegate: AnyObject {
+protocol GameFieldViewDelegate: AnyObject {
     func didTapStartButton()
     func didTapRandomizeButton()
 }
@@ -34,7 +34,7 @@ final class GameViewController: UIViewController {
 }
 
 // MARK: Button's Manager
-extension GameViewController: ControlPanelViewDelegate {
+extension GameViewController: GameFieldViewDelegate {
     func didTapStartButton() {
         if !isStarted {
             self.timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { _ in

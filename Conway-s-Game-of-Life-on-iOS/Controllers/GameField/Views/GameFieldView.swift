@@ -14,7 +14,7 @@ enum StartButtonState {
 
 class GameFieldView: BaseView {
     
-    weak var delegate: ControlPanelViewDelegate?
+    weak var delegate: GameFieldViewDelegate?
     
     private var fieldView = UIView()
     private var cells = [UIView]()
