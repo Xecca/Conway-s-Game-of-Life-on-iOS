@@ -16,7 +16,7 @@
 		9580603A290ADCAE00B9FBDE /* GameFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95806039290ADCAE00B9FBDE /* GameFieldView.swift */; };
 		9580603C290ADD6000B9FBDE /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9580603B290ADD6000B9FBDE /* BaseView.swift */; };
 		9580603E290ADE3F00B9FBDE /* ControlPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9580603D290ADE3F00B9FBDE /* ControlPanelView.swift */; };
-		95DB6CEC29042078000BC798 /* GoLButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB6CEB29042078000BC798 /* GoLButton.swift */; };
+		95DB6CEC29042078000BC798 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB6CEB29042078000BC798 /* Button.swift */; };
 		95DB6CEF29042EA1000BC798 /* UIView + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB6CEE29042EA1000BC798 /* UIView + ext.swift */; };
 		95DB6CF129043596000BC798 /* LabelWithCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB6CF029043596000BC798 /* LabelWithCounter.swift */; };
 		95DB6CF329043BAB000BC798 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB6CF229043BAB000BC798 /* Resources.swift */; };
@@ -34,7 +34,7 @@
 		95806039290ADCAE00B9FBDE /* GameFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFieldView.swift; sourceTree = "<group>"; };
 		9580603B290ADD6000B9FBDE /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		9580603D290ADE3F00B9FBDE /* ControlPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlPanelView.swift; sourceTree = "<group>"; };
-		95DB6CEB29042078000BC798 /* GoLButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoLButton.swift; sourceTree = "<group>"; };
+		95DB6CEB29042078000BC798 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		95DB6CEE29042EA1000BC798 /* UIView + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + ext.swift"; sourceTree = "<group>"; };
 		95DB6CF029043596000BC798 /* LabelWithCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithCounter.swift; sourceTree = "<group>"; };
 		95DB6CF229043BAB000BC798 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 		95DB6CEA29042064000BC798 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				95DB6CEB29042078000BC798 /* GoLButton.swift */,
+				95DB6CEB29042078000BC798 /* Button.swift */,
 				95DB6CF029043596000BC798 /* LabelWithCounter.swift */,
 				9580603B290ADD6000B9FBDE /* BaseView.swift */,
 			);
@@ -224,7 +224,7 @@
 			files = (
 				957BD5ED2901A35B0000FD4B /* GameViewController.swift in Sources */,
 				957BD5E92901A35B0000FD4B /* AppDelegate.swift in Sources */,
-				95DB6CEC29042078000BC798 /* GoLButton.swift in Sources */,
+				95DB6CEC29042078000BC798 /* Button.swift in Sources */,
 				9580603E290ADE3F00B9FBDE /* ControlPanelView.swift in Sources */,
 				9580603A290ADCAE00B9FBDE /* GameFieldView.swift in Sources */,
 				957BD5EB2901A35B0000FD4B /* SceneDelegate.swift in Sources */,

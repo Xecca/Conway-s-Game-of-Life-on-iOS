@@ -8,8 +8,8 @@
 import UIKit
 
 class ControlPanelView: BaseView {
-    lazy var startButton = GoLButton(with: .startStop)
-    lazy var randomizeButton = GoLButton(with: .randomize)
+    lazy var startButton = Button(with: .startStop)
+    lazy var randomizeButton = Button(with: .randomize)
     let generationLabel = LabelWithCounter()
     
     func configure() {

@@ -1,5 +1,5 @@
 //
-//  GoLButton.swift
+//  Button.swift
 //  Conway-s-Game-of-Life-on-iOS
 //
 //  Created by Dreik on 10/22/22.
@@ -12,7 +12,7 @@ public enum GoLButtonType {
     case randomize
 }
 
-class GoLButton: UIButton {
+class Button: UIButton {
     private var type: GoLButtonType = .startStop
     private let label = UILabel()
     
@@ -34,7 +34,7 @@ class GoLButton: UIButton {
     }
 }
 
-private extension GoLButton {
+private extension Button {
     func setupViews() {
         setupView(label)
     }

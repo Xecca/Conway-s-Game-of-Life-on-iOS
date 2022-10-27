@@ -113,36 +113,46 @@ extension GameViewController {
             if i >= Constants.fieldWidth && i % Constants.fieldWidth == 0 {
                 row += 1
             }
-            var countOfAliveNeighbors = 0
             // check left neighbors
-            let shiftToTopNeighbors = i - Constants.fieldWidth
-            
-            if i != 0 && Constants.fieldWidth * (row - 1) - i != 0 {
-                countOfAliveNeighbors += checkVerticalNeighbors(shiftToTopNeighbors - 1)
-            }
-            if i != Constants.fieldWidth - 1 && Constants.fieldWidth * row - 1 - i != 0 {
-                countOfAliveNeighbors += checkVerticalNeighbors(shiftToTopNeighbors + 1 )
-            }
-            countOfAliveNeighbors += checkTopOrBottomNeighbors(shiftToTopNeighbors)
-            countOfAliveNeighbors += checkTopOrBottomNeighbors(i + Constants.fieldWidth)
+            let countOfAliveNeighbors = checkAllNeighbors(by: i, in: row)
             // check cell isAlive
-            if !cells[i] {
-                if countOfAliveNeighbors == 3 {
-                    resurrectCell(at: i)
-                }
-            } else {
-                switch countOfAliveNeighbors {
-                case 0...1, 4...8:
-                    killCell(at: i)
-                default:
-                    resurrectCell(at: i)
-                }
-            }
+            checkCellIsAlive(with: countOfAliveNeighbors, in: i)
             i += 1
         }
         currentGeneration += 1
         changeGenerationCounter(to: currentGeneration)
         fieldView.updateField(with: cells)
+    }
+    
+    private func checkAllNeighbors(by i: Int, in row: Int) -> Int {
+        var countOfAliveNeighbors = 0
+        let shiftToTopNeighbors = i - Constants.fieldWidth
+        
+        if i != 0 && Constants.fieldWidth * (row - 1) - i != 0 {
+            countOfAliveNeighbors += checkVerticalNeighbors(shiftToTopNeighbors - 1)
+        }
+        if i != Constants.fieldWidth - 1 && Constants.fieldWidth * row - 1 - i != 0 {
+            countOfAliveNeighbors += checkVerticalNeighbors(shiftToTopNeighbors + 1 )
+        }
+        countOfAliveNeighbors += checkTopOrBottomNeighbors(shiftToTopNeighbors)
+        countOfAliveNeighbors += checkTopOrBottomNeighbors(i + Constants.fieldWidth)
+        
+        return countOfAliveNeighbors
+    }
+    
+    private func checkCellIsAlive(with aliveNeighbors: Int, in i: Int) {
+        if !cells[i] {
+            if aliveNeighbors == 3 {
+                resurrectCell(at: i)
+            }
+        } else {
+            switch aliveNeighbors {
+            case 0...1, 4...8:
+                killCell(at: i)
+            default:
+                resurrectCell(at: i)
+            }
+        }
     }
     
     private func checkVerticalNeighbors(_ index: Int) -> Int {
