@@ -26,22 +26,18 @@ final class GameViewController: UIViewController {
         
         initiateGame()
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
 }
 
 // MARK: Button's Manager
 extension GameViewController: GameFieldViewDelegate {
     func didTapStartButton() {
         if !isStarted {
-            self.timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { _ in
-                self.updateGeneration()
+            timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { [weak self] _ in
+                self?.updateGeneration()
             })
             fieldView.setStartButtonTo(.stop)
         } else {
-            self.timer.invalidate()
+            timer.invalidate()
             fieldView.setStartButtonTo(.start)
         }
         isStarted.toggle()
@@ -50,7 +46,7 @@ extension GameViewController: GameFieldViewDelegate {
     func didTapRandomizeButton() {
         currentGeneration = 0
         changeGenerationCounter(to: currentGeneration)
-        self.timer.invalidate()
+        timer.invalidate()
         isStarted = false
         isRandomized = true
         
@@ -181,15 +177,14 @@ extension GameViewController {
 // MARK: - Views Manager
 extension GameViewController {
     private func setupViews() {
-        fieldView.configure()
         view.setupView(fieldView)
     }
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
             fieldView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            fieldView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            fieldView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            fieldView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.leftDistanceToView),
+            fieldView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.rightDistanceToView),
             fieldView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }

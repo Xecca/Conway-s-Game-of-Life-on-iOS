@@ -11,12 +11,6 @@ final class ControlPanelView: BaseView {
     lazy var startButton = Button(with: .startStop)
     lazy var randomizeButton = Button(with: .randomize)
     let generationLabel = LabelWithCounter()
-    
-    func configure() {
-        setupViews()
-        constraintViews()
-        configureAppearance()
-    }
 }
 
 // MARK: - Views Manager

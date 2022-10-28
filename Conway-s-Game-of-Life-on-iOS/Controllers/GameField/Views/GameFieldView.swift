@@ -19,21 +19,15 @@ final class GameFieldView: BaseView {
     private var fieldView = UIView()
     private var cells = [UIView]()
     private let controlPanel = ControlPanelView()
-    
-    func configure() {
-        setupViews()
-        constraintViews()
-        configureAppearance()
-    }
 }
 
 extension GameFieldView {
-    func updateField(with cells: [Bool]) {
-        for (i, cellState) in cells.enumerated() {
+    func updateField(with cellsArr: [Bool]) {
+        for (i, cellState) in cellsArr.enumerated() {
             if cellState == true {
-                self.cells[i].backgroundColor = .black
+                cells[i].backgroundColor = .black
             } else {
-                self.cells[i].backgroundColor = .white
+                cells[i].backgroundColor = .white
             }
         }
     }
@@ -89,7 +83,7 @@ extension GameFieldView {
                 x += Constants.fieldCellWidth
                 column += 1
                 
-                self.cells.append(cell)
+                cells.append(cell)
                 fieldView.setupView(cell)
             }
             x = Constants.halfOfCellWidth
@@ -114,7 +108,6 @@ extension GameFieldView {
     override func setupViews() {
         super.setupViews()
         
-        controlPanel.configure()
         controlPanel.startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         controlPanel.randomizeButton.addTarget(self, action: #selector(randomizeButtonTapped), for: .touchUpInside)
         

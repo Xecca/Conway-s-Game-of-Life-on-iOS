@@ -12,14 +12,15 @@ struct Constants {
     static let fieldHeight = 50
     static let cellsCount = fieldWidth * fieldHeight
     static let startCellsAmount = 200
-    static let leftDistanceToView: CGFloat = 0
-    static let rigthDistanceToView: CGFloat = 0
+    static let leftDistanceToView: CGFloat = 10
+    static let rightDistanceToView: CGFloat = 10
     static let galleryMinimumLineSpacing: CGFloat = 0
     
     static let screenWidth = UIScreen.main.bounds.width
-    static let fieldCellWidth = screenWidth / CGFloat(fieldWidth)
+    static let fieldViewWidth = screenWidth - leftDistanceToView - rightDistanceToView
+    static let fieldCellWidth = fieldViewWidth / CGFloat(fieldWidth)
     static let halfOfCellWidth = fieldCellWidth / 2
     
     static let leftBoundry = halfOfCellWidth
-    static let rightBoundry = screenWidth - leftBoundry
+    static let rightBoundry = fieldViewWidth - leftBoundry
 }
